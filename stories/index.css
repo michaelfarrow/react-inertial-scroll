@@ -1,0 +1,22 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body,
+#root,
+.scroll-container {
+  height: 100%;
+}
+
+.scroll-content {
+  padding: 5em;
+  max-width: 30em;
+}
+
+.expandable {
+  transition-property: height;
+  transition-duration: 300ms;
+}
