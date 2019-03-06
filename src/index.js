@@ -58,7 +58,16 @@ export default class ScrollContainer extends Component {
   }
 
   mounted = false
-  contentHeight = 0
+  sizes = {
+    container: {
+      width: 0,
+      height: 0
+    },
+    content: {
+      width: 0,
+      height: 0
+    }
+  }
 
   constructor (props) {
     super(props)
@@ -82,16 +91,32 @@ export default class ScrollContainer extends Component {
 
   monitorHeight = () => {
     const { onResize } = this.props
-    if (this.scrollbar && this.$content) {
-      const height = this.$content.clientHeight
-      if (height !== this.contentHeight) {
-        this.contentHeight = height
-        const atBottomLimit = this.scrollbar.offset.y === this.scrollbar.limit.y
-        this.scrollbar.update()
-        if (atBottomLimit) {
-          this.scrollbar.setPosition(this.scrollbar.limit.x, this.scrollbar.limit.y)
+    const { scrollbar, $container, $content } = this
+    if (scrollbar && $container && $content) {
+      const containerWidth = $container.clientWidth
+      const containerHeight = $container.clientHeight
+      const contentWidth = $content.clientWidth
+      const contentHeight = $content.clientHeight
+      if (containerWidth !== this.sizes.container.width ||
+        containerHeight !== this.sizes.container.height ||
+        contentWidth !== this.sizes.content.width ||
+        contentHeight !== this.sizes.content.height) {
+        this.sizes = {
+          container: {
+            width: containerWidth,
+            height: containerHeight
+          },
+          content: {
+            width: contentWidth,
+            height: contentHeight
+          }
         }
-        onResize && onResize(height)
+        const atBottomLimit = scrollbar.offset.y === scrollbar.limit.y
+        scrollbar.update()
+        if (atBottomLimit) {
+          scrollbar.setPosition(scrollbar.limit.x, scrollbar.limit.y)
+        }
+        onResize && onResize(this.sizes)
       }
     }
     if (this.mounted) requestAnimationFrame(this.monitorHeight)
