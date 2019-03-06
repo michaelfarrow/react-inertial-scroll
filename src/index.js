@@ -49,6 +49,7 @@ export default class ScrollContainer extends Component {
     wheelEventTarget: PropTypes.element,
     plugins: PropTypes.object,
     onScroll: PropTypes.func,
+    onResize: PropTypes.func,
     children: PropTypes.node
   }
 
@@ -80,6 +81,7 @@ export default class ScrollContainer extends Component {
   }
 
   monitorHeight = () => {
+    const { onResize } = this.props
     if (this.scrollbar && this.$content) {
       const height = this.$content.clientHeight
       if (height !== this.contentHeight) {
@@ -89,6 +91,7 @@ export default class ScrollContainer extends Component {
         if (atBottomLimit) {
           this.scrollbar.setPosition(this.scrollbar.limit.x, this.scrollbar.limit.y)
         }
+        onResize && onResize(height)
       }
     }
     if (this.mounted) requestAnimationFrame(this.monitorHeight)
@@ -141,7 +144,7 @@ export default class ScrollContainer extends Component {
   }
 
   render () {
-    const { damping, thumbMinSize, syncCallbacks, renderByPixels, alwaysShowTracks, continuousScrolling, wheelEventTarget, plugins, onScroll, children, ...props } = this.props
+    const { damping, thumbMinSize, syncCallbacks, renderByPixels, alwaysShowTracks, continuousScrolling, wheelEventTarget, plugins, onScroll, onResize, children, ...props } = this.props
 
     return (
       <section data-scrollbar ref={ref => this.$container = ref} {...props}>
