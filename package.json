@@ -5,8 +5,12 @@
   "license": "MIT",
   "scripts": {
     "storybook": "start-storybook -p 9001 -c storybook",
-    "build": "webpack"
+    "build": "webpack",
+    "prepare" : "yarn run build"
   },
+  "files": [
+    "build/**/*"
+  ],
   "peerDependencies": {
     "react": "^16.8.3"
   },
