@@ -4,7 +4,8 @@
   "main": "build/index.js",
   "license": "MIT",
   "scripts": {
-    "storybook": "start-storybook -p 9001 -c storybook",
+    "storybook": "start-storybook -p 9001",
+    "deploy-storybook": "storybook-to-ghpages --out=.docs",
     "build": "webpack",
     "prepare": "yarn run build"
   },
@@ -20,6 +21,7 @@
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
     "@storybook/react": "^5.0.0",
+    "@storybook/storybook-deployer": "^2.8.1",
     "babel-loader": "^8.0.5",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3"
