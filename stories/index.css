@@ -11,7 +11,7 @@ body,
   height: 100%;
 }
 
-.scroll-content {
+.scroll-content-inner {
   padding: 5em;
   max-width: 30em;
 }
@@ -19,4 +19,35 @@ body,
 .expandable {
   transition-property: height;
   transition-duration: 300ms;
+}
+
+.scroll-container.scroll-container-horizontal .scroll-content {
+  height: 100%;
+}
+
+.scroll-container.scroll-container-horizontal .scroll-content-inner {
+  max-width: none;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.scroll-container.scroll-container-horizontal .scroll-content-inner {
+  max-height: 100%;
+  width: 300%;
+  overflow: hidden;
+  display: flex;
+}
+
+.scroll-container.scroll-container-horizontal .scroll-content-inner > * {
+  flex: 1;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.scroll-container.scroll-container-horizontal .scroll-content-inner > *:first-child {
+  margin-left: 0;
+}
+
+.scroll-container.scroll-container-horizontal .scroll-content-inner > *:last-child {
+  margin-right: 0;
 }

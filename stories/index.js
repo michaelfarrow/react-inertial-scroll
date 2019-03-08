@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { storiesOf } from '@storybook/react'
 import ScrollContainer, { wrapScrollChild } from '../src'
 import './index.css'
@@ -75,9 +75,9 @@ class ExpandableChild extends Component {
 
 }
 
-storiesOf('Scroll Container', module)
-  .add('basic usage', () => (
-    <ScrollContainer className='scroll-container'>
+const Copy = () => {
+  return (
+    <Fragment>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in lorem vel nisi bibendum ullamcorper et in ante. Phasellus rutrum quis arcu id sagittis. Donec
         id sodales tortor. Nulla ullamcorper nisi at nunc pellentesque vulputate. Sed interdum congue ultrices. Nulla iaculis elementum risus eu maximus. Sed pellentesque
@@ -113,6 +113,19 @@ storiesOf('Scroll Container', module)
         Nulla eu leo id urna porta aliquet. Sed tempor, nisi ullamcorper tincidunt dapibus, dolor neque vehicula tortor, viverra elementum dolor justo eu metus. Fusce
         eget viverra nunc, luctus facilisis neque.
       </p>
+    </Fragment>
+  )
+}
+
+storiesOf('Scroll Container', module)
+  .add('Vertical', () => (
+    <ScrollContainer className='scroll-container'>
+      <Copy />
       <ExpandableChild />
+    </ScrollContainer>
+  ))
+  .add('Horizontal', () => (
+    <ScrollContainer className='scroll-container scroll-container-horizontal'>
+      <Copy />
     </ScrollContainer>
   ))

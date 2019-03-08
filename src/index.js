@@ -101,6 +101,7 @@ export default class ScrollContainer extends Component {
         containerHeight !== this.sizes.container.height ||
         contentWidth !== this.sizes.content.width ||
         contentHeight !== this.sizes.content.height) {
+        const initial = this.sizes.container.width === 0 && this.sizes.container.height === 0
         this.sizes = {
           container: {
             width: containerWidth,
@@ -111,10 +112,13 @@ export default class ScrollContainer extends Component {
             height: contentHeight
           }
         }
-        const atBottomLimit = scrollbar.offset.y === scrollbar.limit.y
+        const atXLimit = scrollbar.offset.x === scrollbar.limit.x
+        const atYLimit = scrollbar.offset.y === scrollbar.limit.y
         scrollbar.update()
-        if (atBottomLimit) {
-          scrollbar.setPosition(scrollbar.limit.x, scrollbar.limit.y)
+        if (!initial) {
+          const posX = atXLimit ? scrollbar.limit.x : scrollbar.offset.x
+          const posY = atYLimit ? scrollbar.limit.y : scrollbar.offset.y
+          scrollbar.setPosition(posX, posY)
         }
         onResize && onResize(this.sizes)
       }
@@ -173,7 +177,7 @@ export default class ScrollContainer extends Component {
 
     return (
       <section data-scrollbar ref={ref => this.$container = ref} {...props}>
-        <div ref={ref => this.$content = ref}>
+        <div className='scroll-content-inner' ref={ref => this.$content = ref}>
           {children}
         </div>
       </section>
