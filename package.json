@@ -7,7 +7,7 @@
     "storybook": "start-storybook -p 9001",
     "deploy-storybook": "storybook-to-ghpages --out=.docs",
     "build": "webpack",
-    "prepare": "yarn run build",
+    "prepare": "npm run build",
     "publish": "storybook-to-ghpages --out=.docs"
   },
   "files": [
